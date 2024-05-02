@@ -39,7 +39,7 @@ const Sneaker = require("./models/sneaker.js");
     res.render("sneakers/new.ejs");
   });
 
-    app.get("/sneakers/:sneakertId", async (req, res) => {
+    app.get("/sneakers/:sneakerId", async (req, res) => {
     const foundSneaker = await Sneaker.findById(req.params.sneakerId);
     res.render("sneakers/show.ejs", { sneaker: foundSneaker });
   });
