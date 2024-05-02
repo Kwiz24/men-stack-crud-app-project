@@ -1,0 +1,15 @@
+<body>
+    <!-- update the header -->
+    <head>
+        <link rel="stylesheet" href="/css/app.css">
+    </head>
+    <h1>Edit <%= sneaker.name %></h1>
+      <form action="/sneakers/<%=sneaker._id%>?_method=PUT" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" />
+        <label for="isReadyToView">Ready to View?</label>
+        <input type="checkbox" name="isReadyToView" <% if (planet.isReadyToView) { %>checked<% } %> >
+        <button type="submit">Update Sneaker</button>
+      </form>
+    <a href="/sneakers">Back to Sneakers</a>
+  </body>

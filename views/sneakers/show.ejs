@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <a href="/sneaker/">Back to Sneakers</a>
+    <title><%= sneaker.name %></title>
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+  <body>
+    <h1><%= sneaker.name %></h1>
+    <% if (sneaker.isReadyToView) { %>
+        <p>This sneaker is ready to view!</p>
+      <% } else { %>
+        <p>This sneaker is not ready to view!</p>
+      <% } %>
+      <form action="/sneakers/<%=sneaker._id%>?_method=DELETE" method="POST">
+        <a href="/sneakers/<%= sneaker._id %>/edit">Edit <%= sneaker.name %></a>
+        <a href="/sneakers">Back to Sneakers</a>
+        <button type="submit">Delete <%= sneaker.name %></button>
+      </form>
+      <a href="/sneakers">Back to Sneakers</a>
+  </body>
+</html>

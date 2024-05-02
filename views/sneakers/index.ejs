@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <a href="/sneakers">Browse Sneakers</a>
+    <a href="/sneakers/new">Add New Sneaker</a>
+    <a href="/sneakers/">Back to Sneakers</a>
+    <title>Sneakers App</title>
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+  <body>
+    <h1>Welcome to the Sneakers app</h1>
+    <ul>
+      <% sneakers.forEach(sneaker => { %>
+        <li>
+          <a href="/sneakers/<%= sneaker._id %>"><%= sneaker.name %></a>
+        </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
