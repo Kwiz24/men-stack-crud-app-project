@@ -65,7 +65,7 @@ const Sneaker = require("./models/sneaker.js");
     }
     
     // Update the sneaker in the database
-    await sneaker.findByIdAndUpdate(req.params.sneakerId, req.body);
+    await Sneaker.findByIdAndUpdate(req.params.sneakerId, req.body);
   
     // Redirect to the planet's show page to see the updates
     res.redirect(`/sneakers/${req.params.sneakerId}`);

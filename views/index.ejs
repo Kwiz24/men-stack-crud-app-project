@@ -18,6 +18,7 @@
       <% sneakers.forEach(sneaker => { %>
         <li>
           <a href="/sneakers/<%= sneaker._id %>"><%= sneaker.name %></a>
+          <a href="/sneakers/<%= sneaker._id %>"><%= sneaker.size %></a>
         </li>
       <% }); %>
     </ul>
