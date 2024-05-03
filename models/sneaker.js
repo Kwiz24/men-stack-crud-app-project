@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const sneakerSchema = new mongoose.Schema({
     name: String,
+    color: String,
+    size: Number,
     isReadyToView: Boolean,
 });
 

@@ -45,8 +45,8 @@ const Sneaker = require("./models/sneaker.js");
   });
 
   app.delete("/sneakers/:sneakerId", async (req, res) => {
-    await Sneaker.findByIdAndDelete(req.params.carId);
-    res.redirect("/sneaker");
+    await Sneaker.findByIdAndDelete(req.params.sneakerId);
+    res.redirect("/sneakers");
   });
 
   app.get("/sneakers/:sneakerId/edit", async (req, res) => {

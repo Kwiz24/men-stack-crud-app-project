@@ -15,10 +15,9 @@
         <p>This sneaker is not ready to view!</p>
       <% } %>
       <form action="/sneakers/<%=sneaker._id%>?_method=DELETE" method="POST">
-        <a href="/sneakers/<%= sneaker._id %>/edit">Edit <%= sneaker.name %></a>
-        <a href="/sneakers">Back to Sneakers</a>
         <button type="submit">Delete <%= sneaker.name %></button>
       </form>
+      <a href="/sneakers/<%= sneaker._id %>/edit">Edit <%= sneaker.name %></a><br>
       <a href="/sneakers">Back to Sneakers</a>
   </body>
 </html>
