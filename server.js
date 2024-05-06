@@ -24,6 +24,10 @@ const Sneaker = require("./models/sneaker.js");
       res.render("index.ejs", {sneakers: allSneakers});
   });
 
+  app.get("/sneakers/new" , (req, res) => {
+    res.render("sneakers/new.ejs");
+  });
+
   app.post("/sneakers", async (req, res) => {
     console.log(req.body);
     if(req.body.isReadyToView === "on"){
@@ -35,20 +39,18 @@ const Sneaker = require("./models/sneaker.js");
       res.redirect('/sneakers');
   });
 
-  app.get("/sneakers/new" , (req, res) => {
-    res.render("sneakers/new.ejs");
-  });
-
+  //Introduces A new page
     app.get("/sneakers/:sneakerId", async (req, res) => {
     const foundSneaker = await Sneaker.findById(req.params.sneakerId);
     res.render("sneakers/show.ejs", { sneaker: foundSneaker });
-  });
+  }); 
 
   app.delete("/sneakers/:sneakerId", async (req, res) => {
     await Sneaker.findByIdAndDelete(req.params.sneakerId);
     res.redirect("/sneakers");
   });
 
+  //Introduces A new page
   app.get("/sneakers/:sneakerId/edit", async (req, res) => {
     const foundSneaker = await Sneaker.findById(req.params.sneakerId);
     res.render("sneakers/edit.ejs", {
@@ -67,7 +69,7 @@ const Sneaker = require("./models/sneaker.js");
     // Update the sneaker in the database
     await Sneaker.findByIdAndUpdate(req.params.sneakerId, req.body);
   
-    // Redirect to the planet's show page to see the updates
+    // Redirect to the sneakers's show page to see the updates
     res.redirect(`/sneakers/${req.params.sneakerId}`);
   });
 
