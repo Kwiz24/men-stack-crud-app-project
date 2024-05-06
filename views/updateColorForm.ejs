@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Sneaker Color</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+    <h1>Update Sneaker Color</h1>
+    <form action="/sneakers/<%= sneakerId %>/update/color" method="POST">
+        <!-- Sneaker Color Input -->
+        <label for="color">New Color:</label>
+        <input type="text" id="color" name="color" required>
+        
+        <!-- Submit Button -->
+        <button type="submit">Update Color</button>
+    </form>
+</body>

@@ -1,77 +1,253 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const Apparel = require('./models/apparel');
+const Brand = require('./models/brand');
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 
 const app = express();
 
 const Sneaker = require("./models/sneaker.js");
+// const Apparel = require("./models/apparel.js");
+// const Brand = require("./models/brand.js");
 
-  app.use(express.urlencoded({ extended: false }));
-  app.use(methodOverride("_method"));
-  app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
+app.use(morgan("dev"));
+app.use(express.static('public'));
 
-  app.use(express.static('public'));
+// Display data on multiple pages route for sneaker list
+app.get("/sneakers", async (req, res) => {
+  const perPage = 10;
+  const page = req.query.page || 1;
 
-  app.get("/", async (req, res) => {
-    res.render("index.ejs");
-  });
+  try {
+      const allSneakers = await Sneaker.find()
+          .skip((perPage * page) - perPage)
+          .limit(perPage)
+          .exec();
 
-  app.get("/sneakers", async (req, res) => {
+      const count = await Sneaker.countDocuments();
+      const totalPages = Math.ceil(count / perPage);
+
+      const allApparel = await Apparel.find();
+      const allBrands = await Brand.find();
+
+      res.render("index.ejs", {
+          sneakers: allSneakers,
+          apparel: allApparel,
+          brands: allBrands,
+          current: page,
+          pages: totalPages
+      });
+  } catch (err) {
+      console.error("Error:", err);
+      res.redirect("/");
+  }
+});
+
+app.get('/sneakers/:id/update/color', async (req, res) => {
+  try {
+    const sneakerId = req.params.id;
+    // Logic to retrieve sneaker details by ID and render a form to update the color
+    res.render('updateColorForm', { sneakerId: sneakerId });
+  } catch (error) {
+    console.error('Error handling GET request for updating sneaker color:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/index', async (req, res) => {
+  try {
+      const apparel = await Apparel.find(); // fetch all Apparel items from the database
+      res.render('index', { apparel: apparel }); // Pass the "apparel" variable to the index.ejs template
+  } catch (err) {
+      // Handle errors
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+// Index route
+app.get("/", async (req, res) => {
+  try {
       const allSneakers = await Sneaker.find();
-      res.render("index.ejs", {sneakers: allSneakers});
-  });
+      const allApparel = await Apparel.find();
+      const allBrands = await Brand.find();
+      
+      res.render("index.ejs", {
+          sneakers: allSneakers,
+          apparel: allApparel,
+          brands: allBrands
+      });
+  } catch (err) {
+      console.error("Error:", err);
+      res.status(500).send("Internal Server Error");
+  }
+});
 
-  app.get("/sneakers/new" , (req, res) => {
+// Sorting route for sneaker list
+app.get("/sneakers/sort/:criteria", async (req, res) => {
+  const criteria = req.params.criteria;
+  let sneakers;
+
+  try {
+      if (criteria === "name") {
+          sneakers = await Sneaker.find().sort({ name: 1 });
+      } else if (criteria === "size") {
+          sneakers = await Sneaker.find().sort({ size: 1 });
+      } else if (criteria === "color") {
+          sneakers = await Sneaker.find().sort({ color: 1 });
+      }
+
+      res.render("index.ejs", { sneakers: sneakers });
+  } catch (err) {
+      console.error("Error:", err);
+      res.redirect("/sneakers");
+  }
+});
+
+// Search route for sneakers
+app.get("/sneakers/search", async (req, res) => {
+  const query = req.query.q;
+
+  try {
+      const searchResults = await Sneaker.find({ name: { $regex: new RegExp(query, "i") } });
+
+      res.render("index.ejs", { sneakers: searchResults });
+  } catch (err) {
+      console.error("Error:", err);
+      res.redirect("/sneakers");
+  }
+});
+
+// Search route for sneakers
+app.get("/sneakers/search", async (req, res) => {
+    const query = req.query.q;
+
+    try {
+        const searchResults = await Sneaker.find({ name: { $regex: new RegExp(query, "i") } });
+
+        res.render("index.ejs", { sneakers: searchResults });
+    } catch (err) {
+        console.error("Error:", err);
+        res.redirect("/sneakers");
+    }
+});
+
+// Route to create a new sneaker
+app.get("/sneakers/new", (req, res) => {
     res.render("sneakers/new.ejs");
-  });
+});
 
-  app.post("/sneakers", async (req, res) => {
+app.post("/sneakers", async (req, res) => {
     console.log(req.body);
-    if(req.body.isReadyToView === "on"){
-        req.body.isReadyToView = true
-    }else {
-       req.body.isReadyToView = false
+    if (req.body.isReadyToView === "on") {
+        req.body.isReadyToView = true;
+    } else {
+        req.body.isReadyToView = false;
     }
     const createdSneaker = await Sneaker.create(req.body);
-      res.redirect('/sneakers');
-  });
+    res.redirect('/sneakers');
+});
 
-  //Introduces A new page
-    app.get("/sneakers/:sneakerId", async (req, res) => {
+// Route to view a specific sneaker
+app.get("/sneakers/:sneakerId", async (req, res) => {
     const foundSneaker = await Sneaker.findById(req.params.sneakerId);
     res.render("sneakers/show.ejs", { sneaker: foundSneaker });
-  }); 
+});
 
-  app.delete("/sneakers/:sneakerId", async (req, res) => {
+// Route to delete a specific sneaker
+app.delete("/sneakers/:sneakerId", async (req, res) => {
     await Sneaker.findByIdAndDelete(req.params.sneakerId);
     res.redirect("/sneakers");
-  });
+});
 
-  //Introduces A new page
-  app.get("/sneakers/:sneakerId/edit", async (req, res) => {
+// Route to edit a specific sneaker
+app.get("/sneakers/:sneakerId/edit", async (req, res) => {
     const foundSneaker = await Sneaker.findById(req.params.sneakerId);
-    res.render("sneakers/edit.ejs", {
-    sneaker: foundSneaker,
-    });
-  });
+    res.render("sneakers/edit.ejs", { sneaker: foundSneaker });
+});
 
-  app.put("/sneakers/:sneakerId", async (req, res) => {
-    // Handle the 'isReadyToView' checkbox data
-    if (req.body.isReadyToView === "on") {
-      req.body.isReadyToView = true;
-    } else {
-      req.body.isReadyToView = false;
-    }
-    
-    // Update the sneaker in the database
-    await Sneaker.findByIdAndUpdate(req.params.sneakerId, req.body);
-  
-    // Redirect to the sneakers's show page to see the updates
-    res.redirect(`/sneakers/${req.params.sneakerId}`);
-  });
+app.put("/sneakers/:sneakerId", async (req, res) => {
+  try {
+      const { sneakerId } = req.params;
+      const updateData = req.body;
+
+      // Handle the 'isReadyToView' checkbox data
+      if (updateData.isReadyToView === "on") {
+          updateData.isReadyToView = true;
+      } else {
+          updateData.isReadyToView = false;
+      }
+
+      // Update the sneaker in the database
+      const updatedSneaker = await Sneaker.findByIdAndUpdate(sneakerId, updateData, { new: true });
+
+      if (!updatedSneaker) {
+          return res.status(404).send("Sneaker not found");
+      }
+
+      // Redirect to the sneakers's show page to see the updates
+      res.redirect(`/sneakers/${sneakerId}`);
+  } catch (err) {
+      console.error("Error:", err);
+      res.status(500).send("Internal Server Error");
+  }
+});
+
+// Route to delete a specific sneaker
+app.get("/sneakers/:sneakerId/delete", async (req, res) => {
+    const foundSneaker = await Sneaker.findById(req.params.sneakerId);
+    res.render("sneakers/delete.ejs", { sneaker: foundSneaker });
+});
+
+// Routes for Apparel CRUD operations
+
+// Route to create a new apparel
+app.get("/apparel/new", (req, res) => {
+  res.render("apparel/new.ejs");
+});
+
+app.post("/apparel", async (req, res) => {
+  try {
+      const createdApparel = await Apparel.create(req.body);
+      res.redirect('/apparel');
+  } catch (err) {
+      console.error("Error:", err);
+      res.status(500).send("Internal Server Error");
+  }
+});
+
+// Route to view a specific apparel
+app.get("/apparel/:apparelId", async (req, res) => {
+  const foundApparel = await Apparel.findById(req.params.apparelId);
+  res.render("apparel/show.ejs", { apparel: foundApparel });
+});
+
+// Route to delete a specific apparel
+app.delete("/apparel/:apparelId", async (req, res) => {
+  await Apparel.findByIdAndDelete(req.params.apparelId);
+  res.redirect("/apparel");
+});
+
+// Route to edit a specific apparel
+app.get("/apparel/:apparelId/edit", async (req, res) => {
+  const foundApparel = await Apparel.findById(req.params.apparelId);
+  res.render("apparel/edit.ejs", { apparel: foundApparel });
+});
+
+app.put("/apparel/:apparelId", async (req, res) => {
+  try {
+      await Apparel.findByIdAndUpdate(req.params.apparelId, req.body);
+      res.redirect(`/apparel/${req.params.apparelId}`);
+  } catch (err) {
+      console.error("Error:", err);
+      res.status(500).send("Internal Server Error");
+  }
+});
 
 app.listen(3002, () => {
   console.log("Listening on port 3002");

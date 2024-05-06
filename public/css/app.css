@@ -1,100 +1,105 @@
-html, body, ul, li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  
-  body {
-    font-family: 'cursive', cursive;
-    background-color: #60bac8;
-    color: #fff;
-    line-height: 1.6;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 20px;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #000000; 
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-    font-size: 36px;
-    text-align: center;
-  }
-  
-  header {
-    background-color: #00d904;
-    color: #000000;
-    padding: 20px 0;
-    text-align: center;
-  }
-  
-  header h1 {
-    margin: 0;
-  }
-  
-  nav {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  nav a {
-    margin: 0 10px;
-    color: #fff;
-    font-size: 18px;
-    transition: color 0.3s ease;
-  }
-  
-  nav a:hover {
-    color: #ff4136; /* Red hover color */
-  }
-  
-  /* Main content */
-  main {
-    background-color: #efe9e9; /* White content background */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Box shadow effect */
-  }
-  
-  /* Planets list */
-  .sneaker-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .sneaker-card {
-    background-color: #333; /* Dark card background */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Box shadow effect */
-  }
-  
-  .sneaker-card h2 {
-    color: #ffdc00; /* Yellow heading */
-    font-size: 24px;
-  }
-  
-  .sneaker-card p {
-    color: #fff; /* White text */
-    margin-top: 10px;
-    line-height: 1.4;
-  }
-  
-  /* Footer */
-  footer {
-    margin-top: 20px;
-    text-align: center;
-    color: #888;
-  }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 36px;
+  text-align: center;
+}
+
+/* Main content */
+main {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sneaker list */
+.sneaker-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.sneaker-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sneaker-card h2 {
+  color: #333;
+  font-size: 20px;
+}
+
+.sneaker-card p {
+  color: #555;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+.pagination-links {
+  margin-top: 20px;
+}
+
+.pagination-links a {
+  margin-right: 10px;
+}
+
+/* Sorting links */
+.sorting-links {
+  margin-top: 20px;
+}
+
+.sorting-links a {
+  margin-right: 10px;
+}
+
+/* Search form */
+.search-form {
+  margin-top: 20px;
+}
+
+.search-form label {
+  margin-right: 10px;
+}
+
+.search-form input[type="text"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-form button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background-color: #0056b3;
+}
