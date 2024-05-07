@@ -28,13 +28,8 @@ app.get("/sneakers", async (req, res) => {
       const count = await Sneaker.countDocuments();
       const totalPages = Math.ceil(count / perPage);
 
-      const allApparel = await Apparel.find();
-      const allBrands = await Brand.find();
-
       res.render("index.ejs", {
           sneakers: allSneakers,
-          apparel: allApparel,
-          brands: allBrands,
           current: page,
           pages: totalPages
       });
@@ -44,28 +39,12 @@ app.get("/sneakers", async (req, res) => {
   }
 });
 
-app.get('/index', async (req, res) => {
-  try {
-      const apparel = await Apparel.find(); // fetch all Apparel items from the database
-      res.render('index', { apparel: apparel }); // Pass the "apparel" variable to the index.ejs template
-  } catch (err) {
-      // Handle errors
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-  }
-});
-
 // Index route
 app.get("/", async (req, res) => {
   try {
       const allSneakers = await Sneaker.find();
-      const allApparel = await Apparel.find();
-      const allBrands = await Brand.find();
-      
       res.render("index.ejs", {
           sneakers: allSneakers,
-          apparel: allApparel,
-          brands: allBrands
       });
   } catch (err) {
       console.error("Error:", err);
@@ -187,51 +166,6 @@ app.put("/sneakers/:sneakerId", async (req, res) => {
 app.get("/sneakers/:sneakerId/delete", async (req, res) => {
     const foundSneaker = await Sneaker.findById(req.params.sneakerId);
     res.render("sneakers/delete.ejs", { sneaker: foundSneaker });
-});
-
-// Routes for Apparel CRUD operations
-
-// Route to create a new apparel
-app.get("/apparel/new", (req, res) => {
-  res.render("apparel/new.ejs");
-});
-
-app.post("/apparel", async (req, res) => {
-  try {
-      const createdApparel = await Apparel.create(req.body);
-      res.redirect('/apparel');
-  } catch (err) {
-      console.error("Error:", err);
-      res.status(500).send("Internal Server Error");
-  }
-});
-
-// Route to view a specific apparel
-app.get("/apparel/:apparelId", async (req, res) => {
-  const foundApparel = await Apparel.findById(req.params.apparelId);
-  res.render("apparel/show.ejs", { apparel: foundApparel });
-});
-
-// Route to delete a specific apparel
-app.delete("/apparel/:apparelId", async (req, res) => {
-  await Apparel.findByIdAndDelete(req.params.apparelId);
-  res.redirect("/apparel");
-});
-
-// Route to edit a specific apparel
-app.get("/apparel/:apparelId/edit", async (req, res) => {
-  const foundApparel = await Apparel.findById(req.params.apparelId);
-  res.render("apparel/edit.ejs", { apparel: foundApparel });
-});
-
-app.put("/apparel/:apparelId", async (req, res) => {
-  try {
-      await Apparel.findByIdAndUpdate(req.params.apparelId, req.body);
-      res.redirect(`/apparel/${req.params.apparelId}`);
-  } catch (err) {
-      console.error("Error:", err);
-      res.status(500).send("Internal Server Error");
-  }
 });
 
 app.listen(3002, () => {
