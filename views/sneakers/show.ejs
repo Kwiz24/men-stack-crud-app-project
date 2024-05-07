@@ -17,5 +17,23 @@
     
     <a href="/sneakers/<%= sneaker._id %>/edit">Edit <%= sneaker.name %></a><br>
     <a href="/sneakers">Back to Sneakers</a>
+
+    <!-- Add a form to submit the delete request -->
+    <form id="deleteForm" action="/sneakers/<%= sneaker._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+    </form>
+
+    <!-- Add JavaScript to handle form submission -->
+    <script>
+        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Show a confirmation dialog before submitting the form
+            if (confirm('Are you sure you want to delete this sneaker?')) {
+                // Submit the form
+                this.submit();
+            }
+        });
+    </script>
 </body>
 </html>

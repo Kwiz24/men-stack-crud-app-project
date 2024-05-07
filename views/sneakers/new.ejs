@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>View A Sneaker</title>
-    <link rel="stylesheet" href="/css/app.css">
-  </head>
-  <body>
-    <h1>Customize Your Sneakers!</h1>
-    <form action="/sneakers" method="POST">
-      <label for="name">Type:</label>
-      <input type="text" name="name" id="name" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View A Sneaker</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <h1>Customize Your Sneakers!</h1>
+  <form action="/sneakers" method="POST">
+    <label for="name">Type:</label>
+    <input type="text" name="name" id="name" />
 
-      <label for="Ready to View">Ready to View?</label>
-      <input type="checkbox" name="Ready to View" id="Ready to View" />
-  
-      <button type="submit">Add Sneaker</button><br>
-      <label for="size">Size:</label>
-      <input type="text" size="size" id="size=" />
-      <a href="/sneakers">Back to Sneakers</a>
-    </form>
-  </body>
-  
+    <label for="color">Color:</label> <!-- Added label for color -->
+    <input type="text" name="color" id="color" /> <!-- Added input field for color -->
+
+    <label for="isReadyToView">Ready to View?</label>
+    <input type="checkbox" name="isReadyToView" id="isReadyToView" />
+
+    <label for="size">Size:</label>
+    <input type="text" name="size" id="size" />
+
+    <label for="imageUrl">Image URL:</label>
+    <input type="text" name="imageUrl" id="imageUrl" />
+
+    <button type="submit">Add Sneaker</button><br>
+  </form>
+  <a href="/sneakers">Back to Sneakers</a>
+</body>
 </html>

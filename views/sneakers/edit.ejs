@@ -1,19 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit <%= sneaker.name %></title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
 <body>
-    <!-- update the header -->
-    <head>
-        <link rel="stylesheet" href="/css/app.css">
-    </head>
     <h1>Edit <%= sneaker.name %></h1>
-      <form action="/sneakers/<%= sneaker._id %>" method="POST"></form>
-      <!-- <form action="/sneakers/<%=sneaker._id%>?_method=PUT" method="POST"> -->
+    <form action="/sneakers/<%= sneaker._id %>?_method=PUT" method="POST">
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" />
-        <label for="isReadyToView">Ready to View?</label>
-        <input type="checkbox" name="isReadyToView" <% if (sneaker.isReadyToView) { %>checked<% } %> >
-        <button type="submit">Update Sneaker</button><br>
-        <label for="size">Size:</label>
-        <input type="text" size="size" id="size=" />
+        <input type="text" name="name" id="name" value="<%= sneaker.name %>" /><br>
 
-      </form>
+        <label for="isReadyToView">Ready to View?</label>
+        <input type="checkbox" name="isReadyToView" <% if (sneaker.isReadyToView) { %>checked<% } %> ><br>
+
+        <label for="size">Size:</label>
+        <input type="text" name="size" id="size" value="<%= sneaker.size %>" /><br>
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" name="imageUrl" id="imageUrl" value="<%= sneaker.imageUrl %>"
+
+        <button type="submit">Update Sneaker</button>
+    </form>
+
     <a href="/sneakers">Back to Sneakers</a>
-  </body>
+</body>
+</html>

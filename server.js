@@ -107,13 +107,19 @@ app.get("/sneakers/new", (req, res) => {
 });
 
 app.post("/sneakers", async (req, res) => {
-    console.log(req.body);
-    if (req.body.isReadyToView === "on") {
-        req.body.isReadyToView = true;
-    } else {
-        req.body.isReadyToView = false;
-    }
-    const createdSneaker = await Sneaker.create(req.body);
+    // Extract data from the form
+    const { name, size, color, imageUrl, isReadyToView } = req.body;
+
+    // Create a new sneaker with the extracted data
+    const createdSneaker = await Sneaker.create({
+        name,
+        size,
+        color,
+        imageUrl,
+        isReadyToView: isReadyToView === "on"  // Convert checkbox value to boolean
+    });
+
+    // Redirect or respond as needed
     res.redirect('/sneakers');
 });
 
@@ -138,7 +144,7 @@ app.get("/sneakers/:sneakerId/edit", async (req, res) => {
 app.put("/sneakers/:sneakerId", async (req, res) => {
   try {
       const { sneakerId } = req.params;
-      const updateData = req.body;
+      const { name, size, color, imageUrl, isReadyToView } = req.body;
 
       // Handle the 'isReadyToView' checkbox data
       if (updateData.isReadyToView === "on") {
@@ -148,7 +154,13 @@ app.put("/sneakers/:sneakerId", async (req, res) => {
       }
 
       // Update the sneaker in the database
-      const updatedSneaker = await Sneaker.findByIdAndUpdate(sneakerId, updateData, { new: true });
+      const updatedSneaker = await Sneaker.findByIdAndUpdate(sneakerId, {
+        name,
+        size,
+        color,
+        imageUrl,
+        isReadyToView: isReadyToView === "on" }, // Convert checkbox value to boolean
+      { new: true });  // Ensure you get the updated document back
 
       if (!updatedSneaker) {
           return res.status(404).send("Sneaker not found");

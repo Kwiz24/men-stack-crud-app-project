@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: cursive;
   background-color: #f0f0f0;
   color: #333;
 }
@@ -36,9 +36,9 @@ main {
 
 /* Sneaker list */
 .sneaker-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .sneaker-card {
@@ -46,6 +46,8 @@ main {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 0 0 calc(33.33% - 20px);
+  margin-bottom: 20px;
 }
 
 .sneaker-card h2 {
@@ -61,6 +63,8 @@ main {
 
 .pagination-links {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination-links a {
@@ -70,6 +74,8 @@ main {
 /* Sorting links */
 .sorting-links {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .sorting-links a {
@@ -79,6 +85,8 @@ main {
 /* Search form */
 .search-form {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .search-form label {
@@ -98,8 +106,41 @@ main {
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .search-form button:hover {
   background-color: #0056b3;
+}
+
+/* Button animation */
+.button-animation {
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+/* Scrolling text */
+.scroll-text {
+  overflow: hidden;
+}
+
+.scroll-text p {
+  animation: scroll 10s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }

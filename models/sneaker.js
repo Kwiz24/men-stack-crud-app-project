@@ -5,6 +5,7 @@ const sneakerSchema = new mongoose.Schema({
     isReadyToView: Boolean,
     color: String,
     size: Number,
+    image: String
 });
 
 const Sneaker = mongoose.model("Sneaker", sneakerSchema);

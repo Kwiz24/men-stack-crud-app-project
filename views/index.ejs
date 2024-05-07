@@ -29,5 +29,23 @@
         <button type="submit">Search</button>
     </form>
 
+    <% sneakers.forEach(sneaker => { %>
+        <div class="sneaker-list">
+            <% sneakers.forEach(sneaker => { %>
+                <div class="sneaker-card">
+                    <img src="<%= sneaker.imageUrl %>" alt="<%= sneaker.name %>">
+                    <h2><%= sneaker.name %></h2>
+                    <p>Color: <%= sneaker.color %></p>
+                    <p>Size: <%= sneaker.size %></p>
+                    <% if (sneaker.isReadyToView) { %>
+                        <p>This sneaker is ready to view!</p>
+                    <% } else { %>
+                        <p>This sneaker is not ready to view!</p>
+                    <% } %>
+                </div>
+            <% }); %>
+        </div>
+    <% }); %>
+
 </body>
 </html>
