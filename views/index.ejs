@@ -18,47 +18,9 @@
         <% sneakers.forEach(sneaker => { %>
             <li>
                 <a href="/sneakers/<%= sneaker._id %>"><%= sneaker.name %></a>
-                <a href="/sneakers/update">Update Sneaker Size & Color</a><br>
             </li>
         <% }); %>
     </ul>
-
-    <!-- Display Apparel -->
-    <h2>Apparel</h2>
-    <ul>
-        <% apparel.forEach(item => { %>
-            <li><%= item.name %></li>
-        <% }); %>
-    </ul>
-
-    <!-- Display Brands -->
-    <h2>Brands</h2>
-    <ul>
-        <% brands.forEach(brand => { %>
-            <li><%= brand.name %></li>
-        <% }); %>
-    </ul>
-
-    <!-- Pagination links -->
-    <% if (pages > 1) { %>
-        <div>
-            <% if (current > 1) { %>
-                <a href="?page=1">First</a>
-                <a href="?page=<%= current - 1 %>">Previous</a>
-            <% } %>
-            <% if (current < pages) { %>
-                <a href="?page=<%= current + 1 %>">Next</a>
-                <a href="?page=<%= pages %>">Last</a>
-            <% } %>
-        </div>
-    <% } %>
-
-    <!-- Sorting links -->
-    <div>
-        <a href="/sneakers/sort/name">Sort by Name</a>
-        <a href="/sneakers/sort/size">Sort by Size</a>
-        <a href="/sneakers/sort/color">Sort by Color</a>
-    </div>
 
     <!-- Search form -->
     <form action="/sneakers/search" method="GET">

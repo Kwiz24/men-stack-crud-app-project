@@ -14,13 +14,7 @@
     <% } else { %>
         <p>This sneaker is not ready to view!</p>
     <% } %>
-    <!-- Hyperlink to update size -->
-    <a href="/sneakers/<%= sneaker._id %>/update/size">Update Sneaker Size</a><br>
-    <!-- Hyperlink to update color -->
-    <a href="/sneakers/<%= sneaker._id %>/update/color">Update Sneaker Color</a><br>
-    <form action="/sneakers/<%=sneaker._id%>?_method=DELETE" method="POST">
-        <button type="submit">Delete <%= sneaker.name %></button>
-    </form>
+    
     <a href="/sneakers/<%= sneaker._id %>/edit">Edit <%= sneaker.name %></a><br>
     <a href="/sneakers">Back to Sneakers</a>
 </body>

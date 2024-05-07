@@ -2,16 +2,12 @@ const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
 const mongoose = require("mongoose");
-const Apparel = require('./models/apparel');
-const Brand = require('./models/brand');
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 
 const app = express();
 
 const Sneaker = require("./models/sneaker.js");
-// const Apparel = require("./models/apparel.js");
-// const Brand = require("./models/brand.js");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
@@ -45,17 +41,6 @@ app.get("/sneakers", async (req, res) => {
   } catch (err) {
       console.error("Error:", err);
       res.redirect("/");
-  }
-});
-
-app.get('/sneakers/:id/update/color', async (req, res) => {
-  try {
-    const sneakerId = req.params.id;
-    // Logic to retrieve sneaker details by ID and render a form to update the color
-    res.render('updateColorForm', { sneakerId: sneakerId });
-  } catch (error) {
-    console.error('Error handling GET request for updating sneaker color:', error);
-    res.status(500).send('Internal Server Error');
   }
 });
 
