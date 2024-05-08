@@ -1,7 +1,13 @@
 body {
-  font-family: cursive;
-  background-color: #f0f0f0;
-  color: #333;
+  font-family: cursive; color: #007bff; font-weight: bolder;
+    margin: 0;
+    padding: 0;
+    background-image: url("https://i.ibb.co/G0PCbqr/sneakers-couch.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Set the height of the background to fill the viewport */
+}
 }
 
 .container {
@@ -143,4 +149,15 @@ main {
   100% {
     transform: translateY(-100%);
   }
+}
+
+.glowing-text {
+  text-shadow: 0 0 5px #00ff00, /* Green glow */
+               0 0 10px #00ff00, /* Green glow */
+               0 0 15px #00ff00, /* Green glow */
+               0 0 20px #00ff00, /* Green glow */
+               0 0 30px #00ff00, /* Green glow */
+               0 0 40px #00ff00, /* Green glow */
+               0 0 50px #00ff00, /* Green glow */
+               0 0 75px #00ff00; /* Green glow */
 }
