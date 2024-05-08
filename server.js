@@ -17,8 +17,8 @@ app.use(express.static('public'));
 // Display data on multiple pages route for sneaker list
 app.get("/sneakers", async (req, res) => {
   const perPage = 10;
-  c
-  onst page = req.query.page || 1;
+  
+  const page = req.query.page || 1;
 
   try {
       const allSneakers = await Sneaker.find()
